@@ -11,14 +11,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'   // ← ajoute -DskipTests
+                sh 'mvn clean package -DskipTests'
             }
         }
 
-        // Tu peux garder le stage Test (bonus) ou le supprimer
-        stage('Test (bonus)') {
+        stage('Quality (SonarQube)') {   // on ajoutera ça juste après
             steps {
-                sh 'mvn test'   // si tu veux vraiment tester, il faudra installer MySQL
+                sh 'mvn sonar:sonar'   // à configurer avec SonarQube
             }
         }
     }
