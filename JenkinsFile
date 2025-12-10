@@ -15,11 +15,13 @@ pipeline {
             }
         }
 
-        stage('Quality (SonarQube)') {   // on ajoutera ça juste après
-            steps {
-                sh 'mvn sonar:sonar'   // à configurer avec SonarQube
-            }
-        }
+        stage('Quality (SonarQube)') {
+             steps {
+                  withSonarQubeEnv('SonarQube') {   // le nom que tu as donné dans Tools
+            sh 'mvn sonar:sonar'
+                                                }
+                   }
+                                     }
     }
 
     post {
