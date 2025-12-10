@@ -5,19 +5,20 @@ pipeline {
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/melekmaaouia77-spec/MyStudentsManagement-DevOps.git',
-                    branch: 'master'   // ou 'master' selon ta branche principale
+                    branch: 'master'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'   // ← ajoute -DskipTests
             }
         }
 
+        // Tu peux garder le stage Test (bonus) ou le supprimer
         stage('Test (bonus)') {
             steps {
-                sh 'mvn test'   // si tu as ajouté des tests unitaires
+                sh 'mvn test'   // si tu veux vraiment tester, il faudra installer MySQL
             }
         }
     }
