@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/melekmaaouia77-spec/MyStudentsManagement-DevOps.git',
+                    branch: 'main'   // ou 'master' selon ta branche principale
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test (bonus)') {
+            steps {
+                sh 'mvn test'   // si tu as ajouté des tests unitaires
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+        }
+    }
+}
